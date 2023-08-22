@@ -81,10 +81,17 @@
         <activity
             android:name=".ImplictActivity"
             android:exported="false">
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="image/*"/>
+            </intent-filter>
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <activity
             android:name=".CheckBoxAndRadioButton"
             android:exported="false">
@@ -109,10 +116,19 @@
         <receiver android:exported="false"
             android:name=".broadCast.AirplaneModeChangeReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.AIRPLANE_MODE" />
+                <action android:name="android.intent.action.456" />
             </intent-filter>
         </receiver>
 
     </application>
+
+    <!-- for  ImplicitActivity -->
+    <queries>
+        <intent>
+            <!--We want to query for other apps that can receive intents with specific actions  -->
+            <action android:name="android.intent.action.SEND"/>
+            <data android:mimeType="text/plain"/>
+        </intent>
+    </queries>
 
 </manifest>

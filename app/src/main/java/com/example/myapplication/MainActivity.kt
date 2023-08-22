@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //explict Intent
         button.setOnClickListener {
             val intent = Intent(applicationContext, BroadCastReciverActivity::class.java)
             startActivity(intent)

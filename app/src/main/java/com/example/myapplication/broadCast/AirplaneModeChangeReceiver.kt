@@ -18,5 +18,7 @@ class AirplaneModeChangeReceiver : BroadcastReceiver() {
         if(isAirPlaneModeEnabled){
             Toast.makeText(context,"The airplane is enabled",Toast.LENGTH_SHORT).show()
         }else  Toast.makeText(context,"The airplane is disabled",Toast.LENGTH_SHORT).show()
+
+
     }
 }
