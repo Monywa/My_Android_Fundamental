@@ -10,11 +10,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.GetContent
-import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 
-class ImplictActivity : AppCompatActivity() {
+class ImplicitActivity : AppCompatActivity() {
 
 
     val imagView by lazy {
@@ -43,6 +41,19 @@ class ImplictActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.implict_image)
+
+
+
+        Log.d("ImplicitActivity","onCreate:")
+//        val imageUri= if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//            intent?.getParcelableExtra(Intent.EXTRA_STREAM, Uri::class.java)
+//        }else intent?.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
+//        imageUri?.let {
+//            Log.d("ImplicitActivity:"," Image is received : $imageUri")
+//        }
+//
+//        imagView.setImageURI(imageUri)
+
 
         btn.setOnClickListener {
             Intent(Intent.ACTION_GET_CONTENT).also {
@@ -74,6 +85,7 @@ class ImplictActivity : AppCompatActivity() {
         }
 
         btnSendEmail.setOnClickListener {
+            //implicit
         //action want to send something like email and so on..
             val intent=Intent(Intent.ACTION_SEND).apply {
                 type="text/plain"
@@ -99,9 +111,24 @@ class ImplictActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
+        Log.d("ImplicitActivity","onNewIntent")
         val imageUri= if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent?.getParcelableExtra(Intent.EXTRA_STREAM, Uri::class.java)
         }else intent?.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
-        Log.d("ImplicitActivity:"," Image is received : $imageUri")
+        imageUri?.let {
+            Log.d("ImplicitActivity:"," Image is received : $imageUri")
+        }
+
+        imagView.setImageURI(imageUri)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("ImplicitActivity","onResume")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("ImplicitActivity","onStop")
     }
 }

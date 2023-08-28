@@ -1,0 +1,40 @@
+package com.example.myapplication.service
+
+import android.app.Service
+import android.content.Intent
+import android.os.IBinder
+import androidx.core.app.NotificationCompat
+import com.example.myapplication.R
+
+
+class RunningService : Service() {
+
+    //Bound Service is you can have one active instance and multiple components (other app) can connect to that
+    //single instance
+    override fun onBind(intent: Intent?): IBinder? {
+        return null
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+
+
+        when (intent?.action) {
+            Actions.START.toString() -> start()
+            Actions.STOP.toString() -> stopSelf()
+        }
+        return super.onStartCommand(intent, flags, startId)
+    }
+
+    private fun start(){
+        val notification=NotificationCompat.Builder(this,"running_channel")
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle("Run is active")
+            .setContentText("Elapased time : 00:50")
+            .build()
+        startForeground(1,notification)
+    }
+
+    enum class Actions {
+        START, STOP
+    }
+}

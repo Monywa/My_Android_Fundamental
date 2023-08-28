@@ -2,10 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" /> <!-- for  ImplicitActivity -->
+    <queries>
+        <intent>
 
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+            <!-- We want to query for other apps that can receive intents with specific actions -->
+            <action android:name="android.intent.action.SEND" />
+
+            <data android:mimeType="text/plain" />
+        </intent>
+    </queries>
 
     <application
+        android:name=".RunningApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -16,11 +26,19 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".service.ForegroundServiceActivity"
+            android:exported="false"/>
+        <activity
             android:name=".BroadCastReciverActivity"
-            android:exported="false">
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".DragAndDropActivity"
@@ -79,19 +97,25 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ImplictActivity"
-            android:exported="false">
+            android:name=".ImplicitActivity"
+            android:exported="false"
+            android:launchMode="singleTask">
 
+
+            <!-- To receive from other apps or to open our app from others(implicit) -->
             <intent-filter>
-                <action android:name="android.intent.action.SEND"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:mimeType="image/*"/>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="image/*" />
+
             </intent-filter>
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".CheckBoxAndRadioButton"
             android:exported="false">
@@ -101,34 +125,31 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
 
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
 
-        <receiver android:exported="false"
-            android:name=".broadCast.AirplaneModeChangeReceiver">
+        <!-- Implicit or static broadcast receiver -->
+        <!-- The below is not needed because there is some update in AirplaneModeChangeReceiver -->
+        <receiver
+            android:name=".broadCast.AirplaneModeChangeReceiver"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.456" />
             </intent-filter>
-        </receiver>
-
+        </receiver> <!-- RunningService -->
+        <service
+            android:name=".service.RunningService"
+            android:exported="false"
+            android:foregroundServiceType=""></service>
     </application>
-
-    <!-- for  ImplicitActivity -->
-    <queries>
-        <intent>
-            <!--We want to query for other apps that can receive intents with specific actions  -->
-            <action android:name="android.intent.action.SEND"/>
-            <data android:mimeType="text/plain"/>
-        </intent>
-    </queries>
 
 </manifest>
