@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         //explict Intent
         button.setOnClickListener {
-            val intent = Intent(applicationContext, BroadCastReciverActivity::class.java)
+            val intent = Intent(applicationContext, BroadCastReceiverActivity::class.java)
             startActivity(intent)
         }
     }

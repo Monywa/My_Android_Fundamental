@@ -8,7 +8,7 @@ import android.widget.Button
 import com.example.myapplication.broadCast.AirplaneModeChangeReceiver
 import com.example.myapplication.broadCast.TestReceiver
 
-class BroadCastReciverActivity : AppCompatActivity() {
+class BroadCastReceiverActivity : AppCompatActivity() {
     //Starts Dynamic Broadcast Receiver
     lateinit var receiver :AirplaneModeChangeReceiver
 

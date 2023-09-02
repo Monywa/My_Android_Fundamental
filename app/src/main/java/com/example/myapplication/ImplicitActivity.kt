@@ -114,7 +114,7 @@ class ImplicitActivity : AppCompatActivity() {
         Log.d("ImplicitActivity","onNewIntent")
         val imageUri= if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent?.getParcelableExtra(Intent.EXTRA_STREAM, Uri::class.java)
-        }else intent?.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
+        }else intent?.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)?:return
         imageUri?.let {
             Log.d("ImplicitActivity:"," Image is received : $imageUri")
         }

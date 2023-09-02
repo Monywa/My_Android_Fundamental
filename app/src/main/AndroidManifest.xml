@@ -26,19 +26,33 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".service.ForegroundServiceActivity"
-            android:exported="false"/>
-        <activity
-            android:name=".BroadCastReciverActivity"
-            android:exported="true">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+            android:name=".workManager.WorkManagerActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="image/*"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".service.ForegroundServiceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BroadCastReceiverActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+
         </activity>
         <activity
             android:name=".DragAndDropActivity"
@@ -98,19 +112,16 @@
         </activity>
         <activity
             android:name=".ImplicitActivity"
-            android:exported="false"
-            android:launchMode="singleTask">
+            android:exported="false">
 
+<!--            &lt;!&ndash; To receive from other apps or to open our app from others(implicit) &ndash;&gt;-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.SEND" />-->
 
-            <!-- To receive from other apps or to open our app from others(implicit) -->
-            <intent-filter>
-                <action android:name="android.intent.action.SEND" />
+<!--                <category android:name="android.intent.category.DEFAULT" />-->
 
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data android:mimeType="image/*" />
-
-            </intent-filter>
+<!--                <data android:mimeType="image/*" />-->
+<!--            </intent-filter>-->
 
             <meta-data
                 android:name="android.app.lib_name"
@@ -126,18 +137,18 @@
         <activity
             android:name=".MainActivity"
             android:exported="false">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
 
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
-
-        <!-- Implicit or static broadcast receiver -->
+        </activity> <!-- Implicit or static broadcast receiver -->
         <!-- The below is not needed because there is some update in AirplaneModeChangeReceiver -->
         <receiver
             android:name=".broadCast.AirplaneModeChangeReceiver"
@@ -149,7 +160,7 @@
         <service
             android:name=".service.RunningService"
             android:exported="false"
-            android:foregroundServiceType=""></service>
+            android:foregroundServiceType="" />
     </application>
 
 </manifest>
